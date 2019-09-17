@@ -7,61 +7,101 @@
         @open="handleOpen"
         @close="handleClose"
         :collapse="isCollapse"
+        style="{width: 150px}"
       >
         <div v-for="(item, index) in sidebar1" :key="index">
-          <div>
-          <div>
+          <div  @click="gopage1(item,index)">
+          <div v-if="index===0 || index===1 || index===2">
             <el-menu-item :index="String(index)" @click="asidego(item, index)">
               <i :class="item.icon" class="asidess-icon1"></i>
               <span slot="title" class="asidess-text1">{{ item.name }}</span>
-              <span class="asidess-font3" v-if="isCollapse===false" @click="news1(item,index)">
+              <span class="asidess-font3" v-if="isCollapse===false && newflag[index]===true" @click="news1(item,index)">
                 {{Tips}}
               </span>
-              <span class="asidess-font4" v-else-if="isCollapse===true">
+              <span class="asidess-font4" v-else-if="isCollapse===true && newflag[index]===true">
              ·
               </span>
             </el-menu-item>
           </div>
+<!--              <div v-else-if="index===3">-->
+<!--              <el-submenu index="3" class="">-->
+<!--                  <template slot="title" class="element&#45;&#45;dv2">-->
+<!--                      <i :class="item.icon" ></i>-->
+<!--                      <span slot="title"  class="asidess-text1">{{item.name}}</span>-->
+<!--                      <span class="asidess-font5" v-if="isCollapse===false && newflag[3]===true" @click="news2()">-->
+<!--                {{Tips}}-->
+<!--              </span>-->
+<!--                  </template>-->
+<!--                  <el-menu-item-group v-for="(item1,index1) in item.children" :key="index1">-->
+<!--                      <el-menu-item index="3-index1">{{item1.name}}</el-menu-item>-->
+<!--                  </el-menu-item-group>-->
+<!--              </el-submenu>-->
+<!--              <span class="asidess-font6" v-if="isCollapse===true && newflag[3]===true">-->
+<!--             ·-->
+<!--              </span>-->
+<!--              </div>-->
+
+<!--              <div v-if="index===4">-->
+<!--                  <el-submenu index="4" class="">-->
+<!--                      <template slot="title" class="element&#45;&#45;dv2">-->
+<!--                          <i :class="item.icon" ></i>-->
+<!--                          <span slot="title"  class="asidess-text1">{{item.name}}</span>-->
+<!--                          <span class="asidess-font5" v-if="isCollapse===false && newflag[4]===true" @click="news2()">-->
+<!--                {{Tips}}-->
+<!--              </span>-->
+<!--                      </template>-->
+<!--                      <el-menu-item-group v-for="(item2,index2) in item.children" :key="index2">-->
+<!--                          <el-menu-item index="4-index2" @click="gopage4">{{item2.name}}</el-menu-item>-->
+<!--                      </el-menu-item-group>-->
+<!--                  </el-submenu>-->
+<!--                  <span class="asidess-font6" v-if="isCollapse===true && newflag[4]===true">-->
+<!--             ·-->
+<!--              </span>-->
+
+<!--              </div>-->
+
 
         </div>
         </div>
-          <el-submenu index="3">
+
+          <el-submenu index="3" class="">
             <template slot="title" class="element--dv2">
               <i class="el-icon-user" ></i>
               <span slot="title"  class="asidess-text1">组织员工</span>
-              <span class="asidess-font5" v-if="isCollapse===false" @click="news2()">
+              <span class="asidess-font5" v-if="isCollapse===false && newflag[3]===true" @click="news2()">
                 {{Tips}}
               </span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="3-1">offer管理</el-menu-item>
-              <el-menu-item index="3-2">人员信息</el-menu-item>
+              <el-menu-item index="3-1" @click="gooffer">offer管理</el-menu-item>
+              <el-menu-item index="3-2" @click="goperson">人员信息</el-menu-item>
               <el-menu-item index="3-3">薪酬管理</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-        <span class="asidess-font6" v-if="isCollapse===true">
+        <span class="asidess-font6" v-if="isCollapse===true && newflag[3]===true">
              ·
               </span>
 
 
-          <el-submenu index="4">
+          <el-submenu index="4" class="el-submenu__titless1">
             <template slot="title">
               <i class="el-icon-tickets"></i>
-              <span class="asidess-font5" v-if="isCollapse===false" @click="news3()">
+              <span class="asidess-font5" v-if="isCollapse===false && newflag[4]===true" @click="news3()">
                 {{Tips}}
               </span>
               <span slot="title" class="asidess-text1">表单页</span>
             </template>
-            <el-menu-item-group>
-              <el-menu-item index="4-1">分布表单</el-menu-item>
+            <el-menu-item-group >
+              <el-menu-item index="4-1" @click="gopage4">分布表单</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-        <span class="asidess-font6" v-if="isCollapse===true">
+        <span class="asidess-font6" v-if="isCollapse===true && newflag[4]===true">
              ·
               </span>
 
       </el-menu>
 
+<div v-for="(item,index) in text1" :key="index">
 
       <el-dialog
               title="提示"
@@ -80,10 +120,12 @@
                </span>
         </div>
         <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+    <el-button @click="cancelbut">取 消</el-button>
+    <el-button type="primary" @click="surebut(item,index)">确 定</el-button>
   </span>
       </el-dialog>
+
+</div>
     </div>
     <div >
 
@@ -107,6 +149,7 @@ export default {
       text1:[],
       texts1:"",
       texts2:"",
+      newflag:[],
 
 
 
@@ -114,43 +157,105 @@ export default {
         {
           name: "首页",
           icon: "el-icon-location",
-          index: 1
+          index: 0
         },
         {
           name: "日程管理",
           icon: "el-icon-date",
-          index: 2
+          index: 1
         },
         {
           name: "通讯录",
           icon: "el-icon-document",
-          index: 3
+          index: 2,
+
         },
 
-      //   {
-      //       name:"组织员工",
-      //       icon:"el-icon-user",
-      //       index:4,
-      //   },
-      //   {
-      //       name:"表单页",
-      //       icon:"el-icon-tickets",
-      //       index:5,
-      //   },
+        // {
+          //     name:"组织员工",
+          //     icon:"el-icon-user",
+          //     index:3,
+          //     children:[
+          //         {
+          //             name: "offer管理",
+          //             index:3-1,
+          //         },
+          //         {
+          //             name: "人员信息",
+          //             index:3-2,
+          //         },
+          //
+          //         {
+          //             name: "薪酬管理",
+          //             index:3-3,
+          //
+          //         },
+          //     ],
+          // },
+          // {
+          //     name:"表单页",
+          //     icon:"el-icon-tickets",
+          //     index:4,
+          //     children:[
+          //         {
+          //             name: "分布表单",
+          //             index:4-1,
+          //         },
+          //     ],
+          // },
       ],
     };
   },
   methods: {
+      //去人员信息
+      goperson(){
+          this.$router.push({path:"/personnel"})
+      },
+      //去offer
+      gooffer(){
+          this.$router.push({path:"/offeradministration"})
+      },
+      //去表单
+      gopage4(){
+          console.log(111);
+          this.$router.push({path:"/forms"})
+
+
+
+      },
     //更新消息提示
     newsdata(){
       this.$axios.req("api/mock/news")
               .then(res=>{
                 this.text1=res.data.data
-                console.log( this.text1);
+                if(res){
+                  this.text1.forEach(item=>{
+                    this.newflag.push(item.boer)
+
+                  })
+                  // console.log(this.newflag);
+
+
+                }
+                // console.log( this.text1);
               }).catch(error=>{
         console.log(error);
       })
     },
+      //去页面
+      gopage1(item,index){
+          if(index===1){
+              this.$router.push({name:"schedule"})
+          }
+         else if(index===2){
+              this.$router.push({path:"/maillist"})
+          }
+          else if(index===0){
+              this.$router.push({path:"/"})
+          }
+
+
+      },
 
     //NEW的弹出框
     news1(item,index){
@@ -168,6 +273,16 @@ export default {
       this. dialogVisible=true
       this.texts1=this.text1[4].text1
       this.texts2=this.text1[4].text2
+    },
+    //弹出框的取消按钮
+    cancelbut(){
+      this. dialogVisible=false
+    },
+    //弹出框确定按钮
+    surebut(item,index){
+      this. dialogVisible=false
+      this.newflag[index]=false
+      console.log(index);
     },
 
 
@@ -206,6 +321,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+   @import "../style/commom";
+
 .asidess-icon1 {
   position: absolute;
   left: 25px;
@@ -217,7 +334,7 @@ export default {
   left: 50px;
 }
 .asidess-dv1 {
-  height: 500px;
+  height: 400px;
   overflow: hidden;
   float:left;
   font-size: 12px;
@@ -253,5 +370,13 @@ export default {
   left: 50px;
   margin-top: -36px;
 }
+
+   .el-submenu__title{
+        width: 160px;
+    }
+     .el-menu-vertical-demo:not(.el-menu--collapse) {
+        width: 200px;
+        min-height: 400px;
+    }
 
 </style>

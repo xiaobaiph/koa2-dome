@@ -14,6 +14,7 @@
     "echarts": "^4.2.1",
     "element-ui": "^2.12.0",
     "mockjs": "^1.0.1-beta3",
+    "qrcode": "^1.4.1",
     "qs": "^6.8.0",
     "v-chart": "^1.0.0",
     "v-charts": "^1.19.0",
@@ -35,6 +36,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
     "prettier": "^1.18.2",
+    "rightmenu": "^1.1.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10"
   }

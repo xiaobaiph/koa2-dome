@@ -1,13 +1,13 @@
 <template>
     <div>
-        profit
+        schedule
     </div>
     
 </template>
 
 <script>
     export default {
-        name: "profit",
+        name: "schedule",
         components: {},
         props: {},
         data() {

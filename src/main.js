@@ -14,6 +14,9 @@ import VCharts from 'v-charts'
 
 
 
+
+
+
 Vue.use(VCharts)
 Vue.use(Vant);
 Vue.config.productionTip = false;

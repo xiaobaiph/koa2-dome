@@ -50,7 +50,72 @@ export default new Router({
       component:()=>import("../views/email/email")
 
     },
+    {
+      path:"/aaa",
+      name:"aaa",
+      component:()=>import("../views/AAA")
 
+    },
+    {
+      path: "/maillist",
+      name: "maillist",
+      component: Content,
+      children:[
+        {
+          path:"",
+         component:()=>import('../views/maillist/maillist')
+        }
+      ]
+    },
+    {
+      path: "/schedule",
+      name: "schedule",
+      component: Content,
+      children:[
+        {
+          path:"",
+          component:()=>import('../views/schedule/schedule')
+        }
+      ]
+    },
+    {
+      path: "/forms",
+      name: "forms",
+      component: Content,
+      children:[
+        {
+          path:"",
+          component:()=>import('../views/forms/forms')
+        }
+      ]
+    },
+    {
+      path:"/printing",
+      name:"printing",
+      component:()=>import("../views/printing/printing")
 
+    },
+    {
+      path: "/offeradministration",
+      name: "offeradministration",
+      component: Content,
+      children:[
+        {
+          path:"",
+          component:()=>import('../views/offeradministration/offeradministration')
+        }
+      ]
+    },
+    {
+      path: "/personnel",
+      name: "personnel",
+      component: Content,
+      children:[
+        {
+          path:"",
+          component:()=>import('../views/personnel/personnel')
+        }
+      ]
+    },
   ]
 });

@@ -4,8 +4,11 @@
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
                     <span>利润（万）</span>
+                </div >
+                <div class="city-dv1">
+                    <ve-wordcloud :data="chartData" :settings="chartSettings"></ve-wordcloud>
                 </div>
-                <ve-wordcloud :data="chartData" :settings="chartSettings"></ve-wordcloud>
+
             </el-card>
 
         </div>
@@ -22,9 +25,9 @@
         data() {
             this.chartSettings = {
                 color: ['#ff0', '#00f', '#f00', '#0ff'],
-                shape: 'diamond',
-                sizeMin: 15,
-                sizeMax: 20,
+                shape: 'pentagon',
+                sizeMin: 10,
+                sizeMax: 15,
             }
             return {
                 chartData:{
@@ -79,7 +82,12 @@
     }
 
     .box-card {
-        width: 500px;
+        width: 600px;
+        height: 300px;
+    }
+    .city-dv1{
+      position: relative;
+        top: -100px;
     }
 
 
