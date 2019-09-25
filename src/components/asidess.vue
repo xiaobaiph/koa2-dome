@@ -2,7 +2,7 @@
   <div>
     <div class="asidess-dv1">
       <el-menu
-        default-active="0"
+        :default-active="index1"
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
@@ -75,7 +75,7 @@
             <el-menu-item-group>
               <el-menu-item index="3-1" @click="gooffer">offer管理</el-menu-item>
               <el-menu-item index="3-2" @click="goperson">人员信息</el-menu-item>
-              <el-menu-item index="3-3">薪酬管理</el-menu-item>
+              <el-menu-item index="3-3" @click="gofund">薪酬管理</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         <span class="asidess-font6" v-if="isCollapse===true && newflag[3]===true">
@@ -150,6 +150,7 @@ export default {
       texts1:"",
       texts2:"",
       newflag:[],
+        index1:"0",
 
 
 
@@ -168,7 +169,6 @@ export default {
           name: "通讯录",
           icon: "el-icon-document",
           index: 2,
-
         },
 
         // {
@@ -207,25 +207,37 @@ export default {
     };
   },
   methods: {
+      //去资金管理
+      gofund(){
+          this.$router.push({path:"/fundmanagement"})
+          localStorage.removeItem('index')
+          localStorage.setItem('index',JSON.stringify('3-3'))
+      },
       //去人员信息
       goperson(){
           this.$router.push({path:"/personnel"})
+          localStorage.removeItem('index')
+          localStorage.setItem('index',JSON.stringify('3-2'))
       },
       //去offer
       gooffer(){
           this.$router.push({path:"/offeradministration"})
+          localStorage.removeItem('index')
+          localStorage.setItem('index',JSON.stringify('3-1'))
       },
       //去表单
       gopage4(){
           console.log(111);
           this.$router.push({path:"/forms"})
-
+          localStorage.removeItem('index')
+          localStorage.setItem('index',JSON.stringify('4-1'))
 
 
       },
     //更新消息提示
     newsdata(){
-      this.$axios.req("api/mock/news")
+        console.log(this.index1);
+        this.$axios.req("api/mock/news")
               .then(res=>{
                 this.text1=res.data.data
                 if(res){
@@ -245,13 +257,19 @@ export default {
       //去页面
       gopage1(item,index){
           if(index===1){
-              this.$router.push({name:"schedule"})
+              this.$router.push({path:"/schedule"})
+              localStorage.removeItem('index')
+              localStorage.setItem('index',JSON.stringify(index))
           }
          else if(index===2){
               this.$router.push({path:"/maillist"})
+              localStorage.removeItem('index')
+             localStorage.setItem('index',JSON.stringify(index))
           }
           else if(index===0){
               this.$router.push({path:"/"})
+              localStorage.removeItem('index')
+              localStorage.setItem('index',JSON.stringify(index))
           }
 
 
@@ -306,6 +324,7 @@ export default {
   },
   mounted() {
     this.newsdata()
+      this.index1=JSON.parse(localStorage.getItem('index'))
   },
   created() {},
   filters: {},
@@ -372,10 +391,10 @@ export default {
 }
 
    .el-submenu__title{
-        width: 160px;
+        width: 140px;
     }
      .el-menu-vertical-demo:not(.el-menu--collapse) {
-        width: 200px;
+        width: 160px;
         min-height: 400px;
     }
 

@@ -15,7 +15,12 @@
 export default {
   name: "dendrogram",
   components: {},
-  props: {},
+  props: {
+    arr2:{
+      type:Array
+    },
+
+  },
   data() {
     return {
         data:data1,
@@ -199,16 +204,27 @@ export default {
       // ],
       defaultProps: {
         children: "children",
-        label: "label"
-      }
+        label: "label",
+        arr2:[],
+      },
+      arr3:[],
     };
   },
   methods: {
-
     handleNodeClick(data) {
+      if(this.arr3!==null){
+        this.arr3=[]
+      }
       console.log(data);
-      this.$store.state.label=data.label
-      console.log(this.$store.state.label);
+      console.log(this.arr2);
+this.arr2.forEach(item=>{
+  if(item.region.label===data.label){
+    this.arr3.push(item)
+  }
+})
+      console.log(this.arr3);
+      this.$emit('handleNodeClick',this.arr3)
+
     }
   },
   mounted() {

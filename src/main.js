@@ -10,16 +10,21 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 import "./mock";
 import VCharts from 'v-charts'
+import clipboard from 'clipboard';
+import Print from 'vue-print-nb'
 
 
 
 
 
 
+
+Vue.use(Print); //打印
 
 Vue.use(VCharts)
 Vue.use(Vant);
 Vue.config.productionTip = false;
+Vue.prototype.clipboard = clipboard;//复制
 Vue.use(ElementUI)
 
 Vue.prototype.$axios=axios

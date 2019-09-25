@@ -165,7 +165,7 @@
                           align="center"
                           :prop="item.data"
                           :label="item.name"
-                          width="120"
+                          width="100"
                           show-overflow-tooltip
                   >
                   </el-table-column>
@@ -419,9 +419,8 @@ export default {
       num5: 2,
 
       //表格
-      tableData: [],
-      multipleSelection: [],
-
+      tableData:[],
+      multipleSelection:[],
       //分页
       page: 25,
       currentPage: 1,
@@ -485,8 +484,6 @@ export default {
         if (item.checked === true) {
           this.labels.push(item);
         }
-
-
       });
 
       //filter清除数据
@@ -499,10 +496,6 @@ export default {
           item1.checked = false;
         }
       });
-
-
-
-
       console.log(this.deletedata);
     },
 
@@ -523,59 +516,63 @@ export default {
       this.currentPage = val;
       console.log(this.currentPage);
     },
+    // offerdata2(){
+    //   this.$axios.req("api/mock/offer")
+    //           .then(res=>{
+    //             console.log(res)
+    //           }).catch(error=>{
+    //     console.log(error)
+    //   })
+    // },
+
 
     //请求表格属性
-    offerdata() {
-      this.$axios
-        .req("api/mock/offer")
-        .then(res => {
-          this.tableData = res.data.data;
-          console.log(this.tableData);
-
+    offerdata1(){
+      this.$axios.req("api/mock/offer")
+        .then( res => {
+          this.tableData = res.data.data
+          console.log(this.tableData)
+          if(res){
           //代发
             let data1=[]
             data1= this.tableData.filter(item => {
-                return   item.approval ==='待发';
-            });
+                return   item.approval ==='待发'
+            })
             this.num1=data1.length
-            console.log(this.num1);
+            console.log(this.num1)
             //已发
             let data2=[]
             data2= this.tableData.filter(item => {
-                return   item.approval ==='已发';
-            });
+                return   item.approval ==='已发'
+            })
             this.num2=data2.length
-            console.log(this.num2);
+            console.log(this.num2)
             //已接受
             let data3=[]
             data3= this.tableData.filter(item => {
-                return   item.approval ==='已接受';
-            });
+                return   item.approval ==='已接受'
+            })
             this.num3=data3.length
-            console.log(this.num3);
+            console.log(this.num3)
             //已拒绝
             let data4=[]
             data4= this.tableData.filter(item => {
-                return   item.approval ==='已拒绝';
-            });
+                return   item.approval ==='已拒绝'
+            })
             this.num4=data4.length
-            console.log(this.num4);
+            console.log(this.num4)
             //已入职
             let data5=[]
             data5= this.tableData.filter(item => {
-                return   item.approval ==='已入职';
-            });
+                return   item.approval ==='已入职'
+            })
             this.num5=data5.length
-            console.log(this.num5);
-
-
-
-
-          // console.log(res);
+            console.log(this.num5)
+          }
+          // console.log(res)
+        }).catch(error => {
+          console.log(error)
         })
-        .catch(error => {
-          console.log(error);
-        });
     },
 
     //表格
@@ -593,7 +590,8 @@ export default {
     }
   },
   mounted() {
-    this.offerdata();
+    this.offerdata1()
+    // this.offerdata2()
   },
   created() {},
   filters: {},

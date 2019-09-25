@@ -6,7 +6,7 @@ import Content from "../views/content/Content";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -115,7 +115,39 @@ export default new Router({
           path:"",
           component:()=>import('../views/personnel/personnel')
         }
+      ],
+    },
+    {
+      path: "/fundmanagement",
+      name: "fundmanagement",
+      component: Content,
+      children:[
+        {
+          path:"",
+          component:()=>import('../views/fundmanagement/fundmanagement')
+        }
       ]
     },
   ]
 });
+
+
+
+router.beforeEach((to, from, next) => {
+  let user=JSON.parse(localStorage.getItem('user'))
+  if (user) {
+    next()
+  } else if (
+      to.path==="/login"||
+      to.path=== "/register"||
+  to.path==="/email"
+  ) {
+    next()
+  }
+  else{
+    next({path:"/login"})
+  }
+})
+
+export default router
+

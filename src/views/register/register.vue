@@ -104,7 +104,8 @@ export default {
       value2: "",
       value3: "",
       value4: "",
-      value5: ""
+      value5: "",
+      num1:"",
     };
   },
   methods: {
@@ -156,9 +157,24 @@ export default {
             messagess: this.value5
           })
           .then(res => {
-            // if(res){
-            //     // this.$router.push({name:"home"})
-            // }
+            if(res.data.code===500){
+              this.$message({
+                showClose: true,
+                message: "已存在该用户",
+                type: "warning",
+                center:true,
+              });
+              // this.$router.push({name:"home"})
+            }
+            else if(res.data.code===200){
+              this.$message({
+                showClose: true,
+                message: "注册成功",
+                type: "warning",
+                center:true,
+              });
+              this.$router.push({name:"home"})
+            }
             console.log(res);
           })
           .catch(error => {

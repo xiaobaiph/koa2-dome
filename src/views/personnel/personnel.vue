@@ -32,7 +32,7 @@
                    <el-button :type="style1"  size="mini" round>全部员工</el-button>
                </div>
                <div @click="but2">
-                   <el-button :type="style2" size="mini" round>考试中员工</el-button>
+                   <el-button :type="style2" size="mini"  round>考试中员工</el-button>
                </div >
                <div @click="but3">
                   <el-button :type="style3" size="mini" round>已转正员工</el-button>
@@ -45,7 +45,7 @@
                 <template>
                     <el-table
                             ref="multipleTable"
-                            :data="tableData"
+                            :data="tableData.slice((currentPage-1)*page1,currentPage*page1)"
                             style="width: 100%"
                             :default-sort = "{prop: 'date', order: 'descending'}"
                             @selection-change="handleSelectionChange"
@@ -66,7 +66,7 @@
                                 prop="jobnumber"
                                 label="工号"
                                 sortable
-                                width="180">
+                                width="160">
                         </el-table-column>
                         <el-table-column
                                 align="center"
@@ -79,14 +79,14 @@
                                 align="center"
                                 prop="department.label"
                                 label="部门"
-                                width="180">
+                                width="160">
                         </el-table-column>
                         <el-table-column
                                 prop="start"
                                 align="center"
                                 label="试用期开始日期"
                                 sortable
-                                width="180">
+                                width="160">
                         </el-table-column>
                         <el-table-column
                                 align="center"
@@ -99,7 +99,7 @@
                                 align="center"
                                 prop="approval"
                                 label="转正审批状态"
-                                width="120">
+                                width="100">
                         </el-table-column>
                         <el-table-column label="操作"  align="center">
                             <template slot-scope="scope">
@@ -113,8 +113,24 @@
                 </template>
             </div>
 
+<!--            分页-->
+            <div>
+                <div class="block">
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="currentPage"
+                            :page-sizes="[20, 100, 150, 200]"
+                            :page-size="20"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="tableData.length">
+                    </el-pagination>
+                </div>
+            </div>
+
 
         </div>
+
 
     </div>
     
@@ -127,36 +143,56 @@
         props: {},
         data() {
             return {
+                page1:20,
+                currentPage:1,
+                valus1:"",
                 flag1:false,
-                tableData: [],
+                tableData: [],//页面上渲染的数据
+                tableData1: [],//储存数据
                 style1:"primary",
                 style2:"",
                 style3:"",
             }
         },
         methods: {
+            //分页
+            handleSizeChange(val) {
+                this.page1=val
+                console.log(this.page1);
+            },
+            handleCurrentChange(val) {
+                this.currentPage=val
+                console.log( this.currentPage);
+            },
             //拿到点击行
             handleSelectionChange(val) {
                 this.multipleSelection = val;
-                console.log(val);
+                this.valus1=val
+                // console.log(val);
             },
             //确定按钮
             sures1(val){
-                console.log(val);
-                this.val.forEach(item=>{
-                    item.approval="审核通过"
+                this.flag1=false
+                this.multipleSelection = val;
+                console.log(this.valus1);
+                this.valus1.forEach(item=>{
+                   item.approval="审批通过"
                 })
-                this.tableData.splice(val)
-
-
-
+                this.tableData=this.tableData1
+                // this.tableData.splice(val)
             },
             //切换按钮到审批
             seeapproval(){
                 this.flag1=true
+                this.tableData=this.tableData1.filter(item=>{
+                    return item.approval!=="审批通过"
+                })
+                // this.tableData1=this.tableData
+                // console.log(this.tableData);
             },
             //取消按钮到审批按钮
             cancel(){
+                this.tableData=this.tableData1
                 this.flag1=false
             },
             //表格element属性
@@ -168,28 +204,42 @@
                 this.style1='primary'
                 this.style2=''
                 this.style3=''
-                console.log(index, row);
+                this.tableData=this.tableData1
+
+
             },
             //考试按钮
             but2(){
+                let tableData2=this.tableData1
                 this.style1=''
                 this.style2='primary'
                 this.style3=''
+                this.tableData=tableData2.filter(item=>{
+                   return  item.approval==="审批中"
+                })
 
             },
             //转正按钮
             but3(){
+
+             let tableData2=this.tableData1
                 this.style1=''
                 this.style2=''
                 this.style3='primary'
+                this.tableData=tableData2.filter(item=>{
+                   return  item.approval==="审批通过"
+                })
+
 
             },
             //数据请求
             personneldata(){
-                this.$axios.req("api/mock/personnel",{})
+                this.$axios.req("api/mock/personnel")
                     .then(res=>{
                         this.tableData=res.data.data
-                        console.log(this.tableData);
+                        // console.log(this.tableData);
+                        this.tableData1=this.tableData
+                        console.log(this.tableData1);
                     }).catch(error=>{
                     console.log(error);
                 })

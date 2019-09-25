@@ -78,6 +78,22 @@ export default {
           email: this.value2
         })
         .then(res => {
+          if(res.data.code===200){
+            this.$message({
+              showClose: true,
+              message: "已发送，请耐心等待",
+              type: "success",
+              center:true,
+            });
+          }
+          if(res.data.code===500){
+            this.$message({
+              showClose: true,
+              message: "发送失败，请重新尝试",
+              type: "warning",
+              center:true,
+            });
+          }
           console.log(res);
         })
         .catch(error => {

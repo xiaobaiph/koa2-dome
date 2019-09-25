@@ -37,7 +37,7 @@
                             <el-input v-model.number="ruleForm.value2"></el-input >
                         </el-form-item>
                         <el-form-item label="收款金额" prop="value4"  required>
-                            <el-input v-model="ruleForm.value4"></el-input>
+                            <el-input type="text" v-model="ruleForm.value4" prefix="￥："></el-input>
                         </el-form-item>
                     </el-form>
                     <div class="forms-but1">
@@ -126,9 +126,6 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <router-link tag="a" target="_blank" :to="{name:'ArticleDetail',params:{id:0}}">新增文章</router-link>
-            </div>
         </div>
     </div>
     
@@ -150,6 +147,7 @@
                 value4:"",
                 value5:"",
                     pass:"",
+                    user:""
                 },
                 rules: {
                     value1: [
@@ -186,12 +184,10 @@
                 });
                 window.open(href, '_blank');
 
-                this.$store.state.bills.Receivables=this.ruleForm.value3
-                this.$store.state.bills.payment=this.ruleForm.value1
-                this.$store.state.bills.name=this.ruleForm.value2
-                this.$store.state.bills.money=this.ruleForm.value4
-
-                console.log(this.$store.state.bills.Receivables);
+                localStorage.setItem("Receivables",JSON.stringify(this.ruleForm.value3))
+                localStorage.setItem("payment",JSON.stringify(this.ruleForm.value1))
+                localStorage.setItem("name",JSON.stringify(this.ruleForm.value2))
+                localStorage.setItem("money",JSON.stringify(this.ruleForm.value4))
 
             },
             next() {
@@ -218,7 +214,7 @@
             },
         },
         mounted() {
-
+            this.user=JSON.parse(localStorage.getItem('user'))
 
         },
         created() {
@@ -226,9 +222,7 @@
         },
         filters: {},
         computed: {
-            user(){
-                return  this.$store.state.user
-            }
+
         },
         watch: {},
         directives: {}

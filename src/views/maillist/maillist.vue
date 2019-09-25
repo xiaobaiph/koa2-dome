@@ -2,103 +2,116 @@
   <div>
     <div class="maill-dis1">
       <div>
-        <Dendrogram></Dendrogram>
+        <Dendrogram
+                :arr2="arr2"
+        @handleNodeClick="handleNodeClick"
+        ></Dendrogram>
       </div>
-      <div class="maill-dis2"   >
-        <div v-for="(item, index) in arr1.slice(( currentPage-1)*pageSize,currentPage*pageSize)" :key="index" >
-          <div class="maill-dv1" v-if="item.region.label === label">
-            <div class="maill-dv3">
-              <div class="maill-dv2" :style="{ background: item.color }">
-                {{ item.name }}
-              </div>
-              <div class="maill-text1">
-                <div>
-                  {{ item.name }}
-                </div>
-                <div class="maill-text2">
-                  {{ item.region.label }}/{{ item.position }}
-                </div>
-
-                <div class="maill-dis3">
-                  <div>
-                    <i class="el-icon-circle-plus-outline"></i>
-                  </div>
-                  <div class="maill-text3">
-                    快来给他添加第一个标签吧
-                  </div>
-                </div>
-                <div>
-                  <div></div>
-                </div>
-              </div>
-            </div>
-            <hr class="maill-color1" />
-
-            <div class="maill-dv4">
-              <div>邮箱:{{ item.mailbox }}</div>
-              <div>办公电话：{{ item.telephone }}</div>
-              <div>电话：{{ item.telephones }}</div>
-              <div v-if="item.sex === true">
-                性别:男
-              </div>
-              <div v-if="item.sex === false">
-                性别:女
-              </div>
-              <div>QQ:{{ item.qq }}</div>
-            </div>
-          </div>
-
-            <div class="maill-dv1" v-else-if="label==null">
-                <div class="maill-dv3">
-                    <div class="maill-dv2" :style="{ background: item.color }">
-                        {{ item.name }}
-                    </div>
-                    <div class="maill-text1">
-                        <div>
-                            {{ item.name }}
-                        </div>
-                        <div class="maill-text2">
-                            {{ item.region.label }}/{{ item.position }}
-                        </div>
-
-                        <div class="maill-dis3">
-                            <div>
-                                <i class="el-icon-circle-plus-outline"></i>
+        <div  v-if="arr3">
+            <div class="maill-dis2"  >
+                <div v-for="(item, index) in arr3.slice(( currentPage-1)*pageSize,currentPage*pageSize)" :key="index" >
+                    <div class="maill-dv1">
+                        <div class="maill-dv3">
+                            <div class="maill-dv2" :style="{ background: item.color }">
+                                {{ item.name }}
                             </div>
-                            <div class="maill-text3">
-                                快来给他添加第一个标签吧
+                            <div class="maill-text1">
+                                <div>
+                                    {{ item.name }}
+                                </div>
+                                <div class="maill-text2">
+                                    {{ item.region.label }}/{{ item.position }}
+                                </div>
+
+                                <div class="maill-dis3">
+                                    <div>
+                                        <i class="el-icon-circle-plus-outline"></i>
+                                    </div>
+                                    <div class="maill-text3">
+                                        快来给他添加第一个标签吧
+                                    </div>
+                                </div>
+                                <div>
+                                    <div></div>
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <div></div>
+                        <hr class="maill-color1" />
+
+                        <div class="maill-dv4">
+                            <div>邮箱:{{ item.mailbox }}</div>
+                            <div>办公电话：{{ item.telephone }}</div>
+                            <div>电话：{{ item.telephones }}</div>
+                            <div v-if="item.sex === true">
+                                性别:男
+                            </div>
+                            <div v-if="item.sex === false">
+                                性别:女
+                            </div>
+                            <div>QQ:{{ item.qq }}</div>
                         </div>
                     </div>
-                </div>
-                <hr class="maill-color1" />
-
-                <div class="maill-dv4">
-                    <div>邮箱:{{ item.mailbox }}</div>
-                    <div>办公电话：{{ item.telephone }}</div>
-                    <div>电话：{{ item.telephones }}</div>
-                    <div v-if="item.sex === true">
-                        性别:男
-                    </div>
-                    <div v-if="item.sex === false">
-                        性别:女
-                    </div>
-                    <div>QQ:{{ item.qq }}</div>
+                    <br />
                 </div>
             </div>
-
-
-
-
-          <br />
         </div>
-      </div>
+
+
+
+        <div  v-if="!arr3 || $route.path!=='/maillist'">
+            <div class="maill-dis2"  >
+                <div v-for="(item, index) in arr1.slice(( currentPage-1)*pageSize,currentPage*pageSize)" :key="index" >
+                    <div class="maill-dv1">
+                        <div class="maill-dv3">
+                            <div class="maill-dv2" :style="{ background: item.color }">
+                                {{ item.name }}
+                            </div>
+                            <div class="maill-text1">
+                                <div>
+                                    {{ item.name }}
+                                </div>
+                                <div class="maill-text2">
+                                    {{ item.region.label }}/{{ item.position }}
+                                </div>
+
+                                <div class="maill-dis3">
+                                    <div>
+                                        <i class="el-icon-circle-plus-outline"></i>
+                                    </div>
+                                    <div class="maill-text3">
+                                        快来给他添加第一个标签吧
+                                    </div>
+                                </div>
+                                <div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="maill-color1" />
+
+                        <div class="maill-dv4">
+                            <div>邮箱:{{ item.mailbox }}</div>
+                            <div>办公电话：{{ item.telephone }}</div>
+                            <div>电话：{{ item.telephones }}</div>
+                            <div v-if="item.sex === true">
+                                性别:男
+                            </div>
+                            <div v-if="item.sex === false">
+                                性别:女
+                            </div>
+                            <div>QQ:{{ item.qq }}</div>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
     <!--        分页-->
-    <div>
+    <div v-if="arr3">
       <div class="block">
         <el-pagination
           @size-change="handleSizeChange"
@@ -107,11 +120,26 @@
           :page-sizes="[21,100, 150, 200]"
           :page-size="21"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="arr1.length"
+          :total="arr3.length"
         >
         </el-pagination>
       </div>
     </div>
+      <div v-if="!arr3">
+          <div class="block">
+              <el-pagination
+                      @size-change="handleSizeChange"
+                      @current-change="handleCurrentChange"
+                      :current-page="currentPage"
+                      :page-sizes="[21,100, 150, 200]"
+                      :page-size="21"
+                      layout="total, sizes, prev, pager, next, jumper"
+                      :total="arr1.length"
+              >
+              </el-pagination>
+          </div>
+      </div>
+
   </div>
 </template>
 
@@ -126,11 +154,22 @@ export default {
   data() {
     return {
       arr1: [],
+        arr2:[],
+        arr3:null,
         currentPage:1,
         pageSize:21,
+
     };
+
   },
   methods: {
+      //$emit 接收
+      handleNodeClick(data){
+          this.arr3=data
+          console.log(data);
+          console.log(this.arr3);
+
+      },
     //分页点击事件
     handleSizeChange(val) {
         this.pageSize=val
@@ -142,13 +181,15 @@ export default {
       console.log( this.currentPage);
     },
 
+      //获取数据事件
     maillistdata() {
       this.$axios
         .req("api/mock/maillist")
         .then(res => {
           this.arr1 = res.data.data;
-          console.log(this.arr1);
-          console.log(res);
+          this.arr2=res.data.data;
+            console.log(this.arr1);
+            // console.log(res);
         })
         .catch(error => {
           console.log(error);
@@ -156,14 +197,11 @@ export default {
     }
   },
   mounted() {
-    this.maillistdata();
+    this.maillistdata()
   },
   created() {},
   filters: {},
   computed: {
-    label() {
-      return this.$store.state.label;
-    }
   },
   watch: {},
   directives: {}
@@ -175,7 +213,7 @@ export default {
   display: flex;
 }
 .maill-dv1 {
-  width: 260px;
+  width: 275px;
   height: 200px;
   background-color: #ffffff;
   margin-left: 40px;

@@ -1,5 +1,5 @@
 import Mock from "mockjs";
-import arr1 from "../static/position.json"
+import arr1 from "../static/position.json";
 
 Mock.mock("api/mock/prices", "get", {
   code: 200,
@@ -76,71 +76,104 @@ Mock.mock("api/mock/investigation", "get", {
   ]
 });
 
-Mock.mock("api/mock/maillist", "get", {
+Mock.mock("api/mock/maillist","get", {
   code: 200,
   msg: "success",
   "data|200": [
     {
       id: "@increment(1)",
       name: "@ctitle( 2, 3)",
-      mailbox:"@natural( 1000000,1000000000)@qq.com",
+      mailbox: "@natural( 1000000,1000000000)@qq.com",
       telephone: "@natural(10000000000,19999999999)",
       telephones: "@natural(10000000000,19999999999)",
+      "Labe|2": ["经理", "主管", "员工", "实习生"],
+
       sex: "@boolean()",
-      qq:"@natural( 1000000,1000000000)",
-      'position|1': ["员工","董事长","总经理","组长",'班长',"部长","部门经理",'实习生'],
-      "region|1":arr1,
-      color:'@hex()',
-
-
+      qq: "@natural( 1000000,1000000000)",
+      "position|1": [
+        "员工",
+        "董事长",
+        "总经理",
+        "组长",
+        "班长",
+        "部长",
+        "部门经理",
+        "实习生"
+      ],
+      "region|1": arr1,
+      color: "@hex()"
     }
   ]
 });
-Mock.mock("api/mock/offer", "get", {
+
+Mock.mock("api/mock/offer","get",{
   code: 200,
   msg: "success",
   "data|200": [
     {
       id: "@increment(1)",
       name: "@ctitle( 2, 3)",
-      mailbox:"@natural( 1000000,1000000000)@qq.com",
+      mailbox: "@natural( 1000000,1000000000)@qq.com",
       documenttype: "@ctitle( 2, 3)",
       ids: /(^\d{8}(0\d|10|11|12)([0-2]\d|30|31)\d{3}$)|(^\d{6}(18|19|20)\d{2}(0\d|10|11|12)([0-2]\d|30|31)\d{3}(\d|X|x)$)/,
-      'sex|1': ["男",'女'],
-      'position|1': ['经理','主管','员工','实习生'],
-      places:"@city(true)",
-      qq:"@natural( 1000000,1000000000)",
+      "sex|1": ["男", "女"],
+      "position|1": ["经理", "主管", "员工", "实习生"],
+      places: "@city(true)",
+      qq: "@natural( 1000000,1000000000)",
       date: "@date('yyyy-MM-dd')",
       telephone: /^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-7|9])|(?:5[0-3|5-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[1|8|9]))\d{8}$/,
-      "region|1":arr1,
-      'Marriage|1':['已婚','未婚'],
+      "region|1": arr1,
+      "Marriage|1": ["已婚", "未婚"],
       birthday: "@date('yyyy-MM-dd')",
-      "approval|1":['待发', '已发', '已接受', '已拒绝', '已入职',],
-      age:"@natural( 18,60)",
-      'education|1':['初中', '高中', '大专', '本科', '硕士',' 博士', '博士以上'],
-      Nntion:"@ctitle( 2, 3)",
-      city:"@city(true)",
-
+      "approval|1": ["待发", "已发", "已接受", "已拒绝", "已入职"],
+      age: "@natural( 18,60)",
+      "education|1": [
+        "初中",
+        "高中",
+        "大专",
+        "本科",
+        "硕士",
+        " 博士",
+        "博士以上"
+      ],
+      Nntion: "@ctitle( 2, 3)",
+      city: "@city(true)"
     }
   ]
 });
 
-Mock.mock("api/mock/personnel", "post", {
+Mock.mock("api/mock/personnel","get", {
   code: 200,
   msg: "success",
   "data|200": [
     {
       id: "@increment(1)",
       name: "@ctitle( 2, 4)",
-      jobnumber:"@natural(1000,9999)",
-      mechanism:"区域中心",
-      "department|1":arr1,
-      start:"@date('yyyy-MM-dd')",
-      end:"@date('yyyy-MM-dd')",
-      'position|1': ['经理','主管','员工','实习生'],
-      'approval|1': ['审批通过','审批未通过','审批中'],
-
+      jobnumber: "@natural(1000,9999)",
+      mechanism: "区域中心",
+      "department|1": arr1,
+      start: "@date('yyyy-MM-dd')",
+      end: "@date('yyyy-MM-dd')",
+      "position|1": ["经理", "主管", "员工", "实习生"],
+      "approval|1": ["审批通过", "审批未通过", "审批中"]
     }
   ]
 });
 
+Mock.mock("api/mock/fund", "get", {
+  code: 200,
+  msg: "success",
+  "data|3": [
+    {
+      id: "@increment(1)",
+      name: "@ctitle( 2, 5)",
+      plan: "@natural(0,1000000)",
+      Actual: "@natural(0,1000000)",
+      lastplan: "@natural(0,1000000)",
+      lastActual: "@natural(0,1000000)",
+      flag1: false,
+      flag2: false,
+      flag3: false
+    }
+  ]
+});

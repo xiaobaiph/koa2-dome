@@ -12,8 +12,10 @@
                         <el-breadcrumb-item  v-if="$route.path==='/schedule'">日程管理</el-breadcrumb-item>
                         <el-breadcrumb-item  v-if="$route.path==='/forms'">表单</el-breadcrumb-item>
                         <el-breadcrumb-item  v-if="$route.path==='/forms'">分布表单</el-breadcrumb-item>
-                        <el-breadcrumb-item  v-if="$route.path==='/offeradministration'">组织员工</el-breadcrumb-item>
+                        <el-breadcrumb-item  v-if="$route.path==='/offeradministration'|| $route.path=== '/fpersonnel' || $route.path=== '/fundmanagement'">组织员工</el-breadcrumb-item>
                         <el-breadcrumb-item  v-if="$route.path==='/offeradministration'">offer管理</el-breadcrumb-item>
+                        <el-breadcrumb-item  v-if="$route.path==='/fundmanagement'">薪酬管理</el-breadcrumb-item>
+                        <el-breadcrumb-item  v-if="$route.path==='/personnel'">人员信息</el-breadcrumb-item>
 
                     </el-breadcrumb>
                 </div>
@@ -30,9 +32,10 @@
                         <el-breadcrumb-item  v-if="$route.path==='/schedule'">日程管理</el-breadcrumb-item>
                         <el-breadcrumb-item  v-if="$route.path==='/forms'">表单</el-breadcrumb-item>
                         <el-breadcrumb-item  v-if="$route.path==='/forms'">分布表单</el-breadcrumb-item>
-                        <el-breadcrumb-item  v-if="$route.path==='/offeradministration' || $route.path=== '/personnel'">组织员工</el-breadcrumb-item>
+                        <el-breadcrumb-item  v-if="$route.path==='/offeradministration' || $route.path=== '/personnel' || $route.path=== '/fundmanagement'">组织员工</el-breadcrumb-item>
                         <el-breadcrumb-item  v-if="$route.path==='/offeradministration'">offer管理</el-breadcrumb-item>
                         <el-breadcrumb-item  v-if="$route.path==='/personnel'">人员信息</el-breadcrumb-item>
+                        <el-breadcrumb-item  v-if="$route.path==='/fundmanagement'">薪酬管理</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
@@ -81,12 +84,17 @@
 </script>
 
 <style scoped lang="scss">
+    .asidess-post1{
+        width: 100%;
+        overflow: hidden;
+    }
     .asidess-dis1{
         display: flex;
         align-items: center;
         width: 100%;
         height: 100px;
         margin-left: 50px;
+
 
     }
     .asidess-text2{

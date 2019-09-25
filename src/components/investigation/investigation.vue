@@ -130,23 +130,26 @@
           <el-table-column
             prop="website"
             label="操作"
-            width="200"
-            class="el-table"
+
             align="center"
-            :filters="[
-              { text: '家', value: '家' },
-              { text: '公司', value: '公司' }
-            ]"
             :filter-method="filterTag"
             filter-placement="bottom-end"
           >
+<!--            <el-table-column label="操作"  align="center">-->
+<!--              <template slot-scope="scope">-->
+<!--                <el-button-->
+<!--                        size="mini"-->
+<!--                        type="primary"-->
+<!--                        @click="handleEdit(scope.$index, scope.row)">编辑试用期</el-button>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
             <template slot-scope="scope">
               <el-tag
                 v-if="scope.row.website === 1"
                 type="primary"
                 disable-transitions
               >
-                <el-button type="primary" @click="qrcode1"
+                <el-button size="mini" type="primary" @click="qrcode1"
                   >查看网站详情</el-button
                 >
               </el-tag>
@@ -155,7 +158,7 @@
                 type="warning"
                 disable-transitions
               >
-                <el-button type="primary" @click="qrcode2"
+                <el-button   size="mini" type="primary" @click="qrcode2"
                   >查看网站详情</el-button
                 >
               </el-tag>
@@ -164,7 +167,7 @@
                 type="danger"
                 disable-transitions
               >
-                <el-button type="primary" @click="qrcode3"
+                <el-button  size="mini" type="primary" @click="qrcode3"
                   >查看网站详情</el-button
                 >
               </el-tag>
@@ -173,7 +176,7 @@
                 type="info"
                 disable-transitions
               >
-                <el-button type="primary" @click="qrcode4"
+                <el-button   size="mini" type="primary" @click="qrcode4"
                   >查看网站详情</el-button
                 >
               </el-tag>
@@ -186,21 +189,27 @@
       <el-dialog
         title="复制地址"
         :visible.sync="centerDialogVisible"
-        width="30%"
+        width="60%"
         center
       >
-        <span>
             <div>
-                <el-input v-model="input1" placeholder="请输入内容"></el-input>
+              <div style="margin-top: 15px;">
+                <el-input placeholder="请输入内容" v-model="input1"  class="box-but1">
+                  <template slot="append">  <el-button type="danger" data-clipboard-action="copy" class="cobyDomObj" :data-clipboard-text="input1" @click="copyLink">复制</el-button></template>
+                </el-input>
+              </div>
 </div>
-
+        <br>
+<div>
+  如果当前不方便复制可以扫描下方二维码
+</div>
           <div>
             <div id="qrCode">
               <div id="code"></div>
-              <canvas id="canvas"></canvas>
+              <canvas id="canvas"  class="box-dv1"></canvas>
             </div>
           </div>
-        </span>
+
         <span slot="footer" class="dialog-footer">
           <el-button @click="centerDialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="centerDialogVisible = false"
@@ -213,6 +222,7 @@
 </template>
 
 <script>
+
 import QRCode from "qrcode";
 export default {
   name: "investigation",
@@ -225,10 +235,22 @@ export default {
       msg: "hello vue",
       codes: "",
         input1:"",
+      getContext:"",
     };
   },
 
   methods: {
+    //复制按钮
+    copyLink() {
+      let _this = this;
+      let clipboardObj = new this.clipboard(".cobyDomObj");
+      clipboardObj .on('success', function () {
+        _this.$toast("复制成功")
+      });
+      clipboardObj .on('error', function () {
+        _this.$toast("复制失败")
+      });
+    },
     // 百度
     qrcode1() {
       this.centerDialogVisible = true;
@@ -263,7 +285,6 @@ export default {
     // guihub
 
     qrcode4() {
-
       this.centerDialogVisible = true;
       //var canvas = document.getElementById("canvas");
       QRCode.toCanvas(canvas, "https://github.com", function(error) {
@@ -350,4 +371,12 @@ export default {
 .inves-text1 {
   margin: 0 auto;
 }
+  .box-but1{
+
+    width: 700px;
+  }
+  .box-dv1{
+    width: 500px;
+
+  }
 </style>

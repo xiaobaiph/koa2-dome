@@ -52,7 +52,7 @@
         <div>
           <input type="text" class="login-input2" v-model="value3" />
         </div>
-        <div v-html="code1" class="login-code1"></div>
+        <div v-html="code1" class="login-code1" @click="codes"></div>
       </div>
       <hr class="login-color2" />
       <div class="login-dis2">
@@ -104,9 +104,11 @@ export default {
                       type: 'success',
                       center:true,
                     });
-                    this.$router.push({name:"home"})
+                    localStorage.setItem("user",JSON.stringify(res.data.data.user))
+                    this.$router.push({path:"/"})
+                    console.log(JSON.stringify(res.data.data.user));
                     this.$store.state.user=res.data.data.user
-                    console.log(this.$store.state.user);
+
                   }
                   else if(res.data.code===500){
                     this.$message({
